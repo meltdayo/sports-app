@@ -12,18 +12,7 @@ const SignIn = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(email, password)
     
-    const q = query(collection(db, "users"), where("email", "==", email));
-    const querySnapshot = await getDocs(q);
-    console.log(email, password)
-    const userDoc = querySnapshot.docs[0];
-    const user = userDoc.data();
-    console.log(user)
-    if (querySnapshot.empty) {
-      return null;
-    }
-
     const result = await signIn('credentials', {
       redirect: false,
       email,

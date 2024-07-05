@@ -13,14 +13,13 @@ export default NextAuth({
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
-        console.log('Authorizing user with credentials:', credentials);
+
         const q = query(collection(db, "users"), where("email", "==", credentials?.email));
         const querySnapshot = await getDocs(q);
-
-        if (!querySnapshot.empty) {
+        if (querySnapshot.empty) {
           return null;
         }
-console.log(querySnapshot)
+
         const userDoc = querySnapshot.docs[0];
         const user = userDoc.data();
 
